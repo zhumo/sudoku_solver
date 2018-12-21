@@ -1,4 +1,5 @@
 require 'cell'
+require 'block'
 require 'row'
 require 'column'
 
@@ -9,7 +10,8 @@ class Board
   end
 
   def blocks
-
+    @blocks ||= @cells
+    # Transpose method?
   end
 
   def block(n)
