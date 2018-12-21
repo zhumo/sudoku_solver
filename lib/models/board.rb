@@ -1,5 +1,5 @@
 require 'models/cell'
-# require 'block'
+require 'models/block'
 require 'models/row'
 require 'models/column'
 
@@ -12,8 +12,7 @@ class Board
   end
 
   def blocks
-    @blocks ||= @cells
-    # Transpose method?
+    @blocks ||= @cells.each_slice(3).each_slice(3).to_a.transpose.flatten(1).each_slice(3).map(&:flatten).sort { |a,b| }.map { |block_cells| p block_cells; Block.new(block_cells) }
   end
 
   def block(n)
