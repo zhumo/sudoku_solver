@@ -56,7 +56,6 @@ RSpec.describe Board do
             i + (3 * block_col_number) + (9 * 3 * block_row_number)
           end
           expect(board.cells.values_at(*block_cell_indices)).to match_array(board.blocks[n])
-          # expect((0..80).to_a.values_at(*block_cell_indices)).to match_array(board.blocks[n])
         end
       end
     end

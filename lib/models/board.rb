@@ -1,16 +1,18 @@
 require 'models/group'
-require 'models/column'
+require 'models/cell'
 
 class Board
 
   attr_reader :cells
 
   def initialize
-    @cells = ( 9 * 9 ).times.map { |n| Cell.new }
+    @cells = ( 9 * 9 ).times.map { |n| Cell.new(n) }
   end
 
   def blocks
-    @blocks ||= @cells.each_slice(3).each_slice(3).to_a.transpose.flatten(1).each_slice(3).map(&:flatten).sort { |a,b| }.map { |block_cells| p block_cells; Group.new(block_cells) }
+    @blocks ||= @cells.sort {|a,b| a.block_number <=> b.block_number }.each_slice(9).map do |block_cells|
+      Group.new(block_cells)
+    end
   end
 
   def block(n)
@@ -18,7 +20,9 @@ class Board
   end
 
   def rows
-    @rows ||= @cells.each_slice(9).map { |row_cells| Group.new(row_cells) }
+    @rows ||= @cells.each_slice(9).map do |row_cells|
+      Group.new(row_cells)
+    end
   end
 
   def row(n)
@@ -26,7 +30,9 @@ class Board
   end
 
   def columns
-    @columns ||= @cells.each_slice(9).to_a.transpose.map { |column_cells| Group.new(column_cells) }
+    @columns ||= @cells.each_slice(9).to_a.transpose.map do |column_cells| 
+      Group.new(column_cells)
+    end
   end
 
   def column(n)

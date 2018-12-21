@@ -1,7 +1,8 @@
 require 'models/cell'
 
 RSpec.describe Cell do
-  let(:cell) { Cell.new }
+  let(:index) { 1 }
+  let(:cell) { Cell.new(index) }
 
   describe 'without value' do
     subject { cell }
