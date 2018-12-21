@@ -1,6 +1,6 @@
 require 'models/cell'
 # require 'block'
-# require 'row'
+require 'models/row'
 # require 'column'
 
 class Board
