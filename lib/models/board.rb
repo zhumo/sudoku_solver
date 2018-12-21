@@ -5,6 +5,8 @@ require 'column'
 
 class Board
 
+  attr_reader :cells
+
   def initialize
     @cells = [ Cell.new ] * ( 9 * 9 )
   end
