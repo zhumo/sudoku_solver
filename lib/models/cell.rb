@@ -27,4 +27,8 @@ class Cell
   def block_number
     column_number / 3 + (row_number / 3) * 3
   end
+
+  def possible_values
+    (1..).to_a - row.values - column.values - block.values
+  end
 end
