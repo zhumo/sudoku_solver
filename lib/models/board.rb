@@ -6,36 +6,48 @@ class Board
   attr_reader :cells
 
   def initialize
-    @cells = ( 9 * 9 ).times.map { |n| Cell.new(n) }
+    @cells = (9 * 9).times.map { |n| cell = Cell.new(n) }
   end
 
   def blocks
-    @blocks ||= @cells.sort {|a,b| a.block_number <=> b.block_number }.each_slice(9).map do |block_cells|
-      Group.new(block_cells)
-    end
-  end
+    @blocks ||= begin
+      blocks = 9.times.map { |n| Group.new }
 
-  def block(n)
-    @blocks[n]
+      cells.each do |cell|
+        block = blocks[cell.block_number]
+        cell.block = block
+        block << cell
+      end
+
+      blocks
+    end
   end
 
   def rows
-    @rows ||= @cells.each_slice(9).map do |row_cells|
-      Group.new(row_cells)
-    end
-  end
+    @rows ||= begin
+      rows = 9.times.map { |n| Group.new }
 
-  def row(n)
-    @row[n]
+      cells.each do |cell|
+        row = rows[cell.row_number]
+        cell.row = row
+        row << cell
+      end
+
+      rows
+    end
   end
 
   def columns
-    @columns ||= @cells.each_slice(9).to_a.transpose.map do |column_cells| 
-      Group.new(column_cells)
-    end
-  end
+    @columns ||= begin
+      columns = 9.times.map { |n| Group.new }
 
-  def column(n)
-    @columns[n]
+      cells.each do |cell|
+        column = columns[cell.column_number]
+        cell.column = column
+        column << cell
+      end
+
+      columns
+    end
   end
 end

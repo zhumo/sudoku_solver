@@ -1,7 +1,7 @@
 class Cell
   extend Forwardable
 
-  attr_accessor :value
+  attr_accessor :value, :row, :column, :block
   attr_reader :index
 
   def_delegators :value, :nil?
