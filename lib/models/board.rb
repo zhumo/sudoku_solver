@@ -1,14 +1,14 @@
 require 'models/cell'
 # require 'block'
 require 'models/row'
-# require 'column'
+require 'models/column'
 
 class Board
 
   attr_reader :cells
 
   def initialize
-    @cells = [ Cell.new ] * ( 9 * 9 )
+    @cells = ( 9 * 9 ).times.map { |n| Cell.new }
   end
 
   def blocks
