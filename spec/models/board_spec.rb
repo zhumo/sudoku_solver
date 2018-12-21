@@ -4,7 +4,11 @@ RSpec.describe Board do
   describe 'initialization' do
     let(:board) { Board.new }
 
-    its(:cells) { should have_length(81) }
-    # its(:cells) { should_be all
+    describe 'cells attr' do
+      subject { board.cells }
+
+      it { should all( be_a Cell ) }
+      it { should have_attributes(length: 81) }
+    end
   end
 end

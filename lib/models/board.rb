@@ -1,7 +1,7 @@
-require 'cell'
-require 'block'
-require 'row'
-require 'column'
+require 'models/cell'
+# require 'block'
+# require 'row'
+# require 'column'
 
 class Board
 
