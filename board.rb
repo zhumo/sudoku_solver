@@ -1,5 +1,6 @@
 require 'cell'
 require 'row'
+require 'column'
 
 class Board
 
@@ -24,7 +25,7 @@ class Board
   end
 
   def columns
-
+    @columns ||= @cells.each_slice(9).to_a.transpose.map { |column_cells| Column.new(column_cells) }
   end
 
   def column(n)
