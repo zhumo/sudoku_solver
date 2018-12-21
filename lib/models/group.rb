@@ -1,17 +1,9 @@
-class Group
-  include Enumerable
-  extend Forwardable
-
-  attr_reader :cells
-
-  def_delegators :cells, :<<, :each, :length
-
-  def initialize
-    @cells = []
-  end
-
+class Group < Array
   def values
-    cells.map(&:value).compact.uniq
+    map(&:value).compact.uniq
   end
 
+  def inspect
+    map(&:inspect).join(', ')
+  end
 end

@@ -5,49 +5,36 @@ class Board
 
   attr_reader :cells
 
-  def initialize
-    @cells = (9 * 9).times.map { |n| cell = Cell.new(n) }
+  def initialize(state=[])
+    @cells = (9 * 9).times.map { |n| cell = Cell.new(n, value: state[n]) }
+    @cells.each do |cell|
+      row = rows[cell.row_number]
+      cell.row = row
+      row << cell
+
+      column = columns[cell.column_number]
+      cell.column = column
+      column << cell
+
+      block = blocks[cell.block_number]
+      cell.block = block
+      block << cell
+    end
   end
 
   def blocks
-    @blocks ||= begin
-      blocks = 9.times.map { |n| Group.new }
-
-      cells.each do |cell|
-        block = blocks[cell.block_number]
-        cell.block = block
-        block << cell
-      end
-
-      blocks
-    end
+    @blocks ||= blocks = 9.times.map { |n| Group.new }
   end
 
   def rows
-    @rows ||= begin
-      rows = 9.times.map { |n| Group.new }
-
-      cells.each do |cell|
-        row = rows[cell.row_number]
-        cell.row = row
-        row << cell
-      end
-
-      rows
-    end
+    @rows ||= rows = 9.times.map { |n| Group.new }
   end
 
   def columns
-    @columns ||= begin
-      columns = 9.times.map { |n| Group.new }
+    @columns ||= columns = 9.times.map { |n| Group.new }
+  end
 
-      cells.each do |cell|
-        column = columns[cell.column_number]
-        cell.column = column
-        column << cell
-      end
-
-      columns
-    end
+  def solved?
+    cells.all?(&:filled?)
   end
 end
