@@ -1,9 +1,10 @@
 require 'cell'
+require 'row'
 
 class Board
 
   def initialize
-    @cells = [ Cell.new ] * 81
+    @cells = [ Cell.new ] * ( 9 * 9 )
   end
 
   def blocks
@@ -15,7 +16,7 @@ class Board
   end
 
   def rows
-
+    @rows ||= @cells.each_slice(9).map { |row_cells| Row.new(row_cells) }
   end
 
   def row(n)
